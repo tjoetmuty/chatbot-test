@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { model } from "../services/aiApi";
-import Markdown from "react-markdown";
+import ChatHistory from "../components/chatHistory";
 
 const ChatBot = () => {
   const [userInput, setuserInput] = useState("");
   const [answer, setAnswer] = useState("");
+  const [chatHistory, setchatHistory] = useState([])
 
   const handleUserInput = (e) => {
     setuserInput(e.target.value);
@@ -16,8 +17,9 @@ const ChatBot = () => {
       const result = await modelAi.generateContent(userInput);
       const aiAnswer = result.response.text();
       setAnswer(aiAnswer);
-      setuserInput("");
       console.log("hasil", aiAnswer);
+      setuserInput("");
+      setchatHistory([...chatHistory, {type: "user", message: userInput}, {type: "bot", message: aiAnswer}])
     } catch (err) {
       console.log("apa yang terjadi", err.message);
     }
@@ -29,8 +31,11 @@ const ChatBot = () => {
           <h1 className="font-extrabold text-lg">ChatBot Test</h1>
         </div>
         <div className="flex flex-grow justify-center items-center">
-          <div className="text-center">
+          {/* <div className="text-center">
             <Markdown>{!answer ?  "what can i help with?" : answer}</Markdown>
+          </div> */}
+          <div>
+           {!answer ? <p className="font-bold text-2xl">what can i help you with?</p> : <ChatHistory chat={chatHistory}  className="rounded-lg shadow-md p-4"/> } 
           </div>
         </div>
         <div className="w-full flex justify-center mb-4">
