@@ -3,6 +3,7 @@ import { model } from "../services/aiApi";
 
 const ChatBot = () => {
   const [userInput, setuserInput] = useState("");
+  const [answer, setAnswer] = useState("")
   const handleUserInput = (e) => {
     setuserInput(e.target.value);
   };
@@ -10,7 +11,9 @@ const ChatBot = () => {
   const sendMessage = async () => {
     try {
       const result = await modelAi.generateContent(userInput);
-      console.log("hasil", result.response.text());
+      const aiAnswer = result.response.text()
+      setAnswer(aiAnswer)
+      console.log("hasil", aiAnswer);
     } catch(err) {
       console.log("apa yang terjadi", err.message)
     }
@@ -35,6 +38,7 @@ const ChatBot = () => {
               Send
             </button>
           </div>
+          <div>{answer}</div>
         </div>
       </div>
     </div>
