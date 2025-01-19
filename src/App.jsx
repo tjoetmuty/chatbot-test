@@ -1,5 +1,7 @@
+import ChatBot from "./features/ChatBot";
+
 function App() {
-  return <>haloo chatbot</>;
+  return <><ChatBot/></>;
 }
 
 export default App;
