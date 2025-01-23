@@ -4,14 +4,14 @@ import { TypeAnimation } from "react-type-animation";
 // eslint-disable-next-line react/prop-types
 const ChatHistory = ({ chat }) => {
   return (
-    <div>
+    <div className="container w-screen bg-gray-50 p-2 flex flex-col gap-2">
       {chat.map((message, index) => (
         <div
           key={index}
-          className={`py-2 px-4 rounded-lg ${
+          className={`flex items-start py-2 px-4 rounded-lg ${
             message.type === "user"
               ? " bg-gray-100 text-gray-800"
-              : " bg-gray-100 text-blue-800"
+              : " bg-blue-100 text-blue-800"
           }`}
         >
           {message.type === "user" && (
