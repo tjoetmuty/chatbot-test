@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { model } from "../services/aiApi";
 import ChatHistory from "../components/chatHistory";
-import Loading from "../components/Loading";
 
 const ChatBot = () => {
   const [userInput, setuserInput] = useState("");
   const [answer, setAnswer] = useState("");
   const [chatHistory, setchatHistory] = useState([]);
-  const [loading, setLoading] = useState(false)
 
   const handleUserInput = (e) => {
     setuserInput(e.target.value);
@@ -19,7 +17,6 @@ const ChatBot = () => {
 
   const modelAi = model;
   const sendMessage = async () => {
-    setLoading(true)
     try {
       const result = await modelAi.generateContent(userInput);
       const aiAnswer = result.response.text();
@@ -31,7 +28,6 @@ const ChatBot = () => {
         { type: "user", message: userInput },
         { type: "bot", message: aiAnswer },
       ]);
-      setLoading(false)
     } catch (err) {
       console.log("apa yang terjadi", err.message);
     }
@@ -47,7 +43,6 @@ const ChatBot = () => {
             <Markdown>{!answer ?  "what can i help with?" : answer}</Markdown>
           </div> */}
           </div>
-          {/* <Loading isLoading={loading}/> */}
           <div>
             {!answer ? (
               <p className="font-bold text-2xl">what can i help you with?</p>
