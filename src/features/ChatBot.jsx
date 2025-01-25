@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { model } from "../services/aiApi";
+import { maxOutputTokens, model, temperature } from "../services/aiApi";
 import ChatHistory from "../components/chatHistory";
 
 const ChatBot = () => {
@@ -7,8 +7,7 @@ const ChatBot = () => {
   const [answer, setAnswer] = useState("");
   const [chatHistory, setchatHistory] = useState([]);
   const modelAi = model;
-  const maxOutputTokens = import.meta.env.VITE_MAX_TOKENS;
-  const temperature = import.meta.env.VITE_TEMPERATURE;
+
 
   const handleUserInput = (e) => {
     setuserInput(e.target.value);
