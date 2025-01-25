@@ -36,7 +36,6 @@ const ChatBot = () => {
       const result = await chat.sendMessage(promptDefault);
       const aiAnswer = result.response.text();
       setAnswer(aiAnswer);
-      console.log("hasil", aiAnswer);
       setuserInput("");
       setchatHistory([
         ...chatHistory,
@@ -44,7 +43,7 @@ const ChatBot = () => {
         { type: "bot", message: aiAnswer },
       ]);
     } catch (err) {
-      console.log("apa yang terjadi", err.message);
+      console.log(err.message)
     }
   };
   return (
