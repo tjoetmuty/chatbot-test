@@ -9,13 +9,20 @@ const ChatBot = () => {
   const modelAi = model;
   const maxOutputTokens = import.meta.env.VITE_MAX_TOKENS;
   const temperature = import.meta.env.VITE_TEMPERATURE;
+  console.log("input", typeof userInput)
 
   const handleUserInput = (e) => {
     setuserInput(e.target.value);
   };
 
+  
   const clearChat = () => {
     setchatHistory([]);
+  };
+
+  const isRelevantToPlants = (question) => {
+    const keywords = ["tumbuhan", "tanaman", "flora", "jenis tumbuhan", "karakteristik tumbuhan", "manfaat tumbuhan", "habitat tumbuhan", "pertumbuhan tumbuhan"];
+    return keywords.some(keyword => question.toLowerCase().includes(keyword));
   };
 
   // eslint-disable-next-line no-unused-vars
@@ -23,17 +30,42 @@ const ChatBot = () => {
     maxOutputTokens: parseInt(maxOutputTokens),
     temperature: parseFloat(temperature),
   };
-  const sendMessage = async () => {
-    try {
-      const chat = modelAi.startChat({
-        generativeConfig,
-        history: []
-      })
-      const promptDefault = `
-                DPRD Provinsi Sulawesi Tengah
-            `;
+  
+  const handleSend = () => {
+    console.log("userInput:", userInput); // Log nilai sebelum mengirim
+    sendMessage(userInput); // Pastikan mengirimkan string
+};
 
-      const result = await chat.sendMessage(promptDefault);
+  const sendMessage = async (question) => {
+    if (typeof question !== 'string') {
+      console.log("data type question",typeof question)
+      console.error("Pertanyaan harus berupa teks.");
+      return;
+    }
+    
+    if (!isRelevantToPlants(question)) {
+      console.log("Pertanyaan harus berkaitan dengan tumbuhan. Silakan ajukan pertanyaan yang relevan.");
+      return;
+  }
+    try {
+      // const chat = modelAi.startChat({
+      //   generativeConfig,
+      //   history: []
+      // })
+      
+      const result = await modelAi.generateContent({
+        contents: [
+          {
+            role: 'user',
+            parts: [
+              {
+                text: question
+              }
+            ]
+          }
+        ],
+        generationConfig: generativeConfig
+      });
       const aiAnswer = result.response.text();
       setAnswer(aiAnswer);
       setuserInput("");
@@ -81,7 +113,8 @@ const ChatBot = () => {
           <div className="flex gap-2">
             <button
               className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-500 active:bg-blue-400"
-              onClick={sendMessage}
+              // onClick={sendMessage}
+              onClick={handleSend}
             >
               Send
             </button>
