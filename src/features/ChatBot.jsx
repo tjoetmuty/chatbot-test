@@ -9,7 +9,6 @@ const ChatBot = () => {
   const modelAi = model;
   const maxOutputTokens = import.meta.env.VITE_MAX_TOKENS;
   const temperature = import.meta.env.VITE_TEMPERATURE;
-  console.log("input", typeof userInput)
 
   const handleUserInput = (e) => {
     setuserInput(e.target.value);
@@ -32,13 +31,12 @@ const ChatBot = () => {
   };
   
   const handleSend = () => {
-    console.log("userInput:", userInput); // Log nilai sebelum mengirim
-    sendMessage(userInput); // Pastikan mengirimkan string
+    console.log("userInput:", userInput); 
+    sendMessage(userInput); 
 };
 
   const sendMessage = async (question) => {
     if (typeof question !== 'string') {
-      console.log("data type question",typeof question)
       console.error("Pertanyaan harus berupa teks.");
       return;
     }
@@ -48,11 +46,6 @@ const ChatBot = () => {
       return;
   }
     try {
-      // const chat = modelAi.startChat({
-      //   generativeConfig,
-      //   history: []
-      // })
-      
       const result = await modelAi.generateContent({
         contents: [
           {
@@ -113,7 +106,6 @@ const ChatBot = () => {
           <div className="flex gap-2">
             <button
               className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-500 active:bg-blue-400"
-              // onClick={sendMessage}
               onClick={handleSend}
             >
               Send
