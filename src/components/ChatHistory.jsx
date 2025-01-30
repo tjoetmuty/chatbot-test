@@ -1,4 +1,3 @@
-import Markdown from "react-markdown";
 import { TypeAnimation } from "react-type-animation";
 
 // eslint-disable-next-line react/prop-types
@@ -15,7 +14,7 @@ const ChatHistory = ({ chat }) => {
           }`}
         >
           {message.type === "user" && (
-            <span className="mr-2 font-bold text-gray-600">You: </span>
+            <span className="mr-2 font-bold text-gray-600">You: </span> 
           )}
           <div>
             {message.type === "bot" ? (
