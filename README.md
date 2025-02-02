@@ -12,7 +12,7 @@ This chatbot uses Gemini API. Built with React JS for the UI.
 1. **Create Environment Variables:**
 
    - Create a file named `.env` in the root of the project.
-   - Copy the contents from `.env.local` into `.env.`
+   - Copy the contents from `.env.example` into `.env.`
    ```bash
    VITE_API_KEY=your_api_key
    VITE_MODEL_AI=your_model_ai
