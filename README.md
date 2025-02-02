@@ -1,4 +1,5 @@
 ### Chatbot with Gemini API
+(the UI is still on progress (has not been finished))
 
 This chatbot uses Gemini API. Built with React JS for the UI.
 
